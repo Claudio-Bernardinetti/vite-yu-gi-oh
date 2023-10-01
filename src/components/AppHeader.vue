@@ -1,24 +1,16 @@
+<script>
+export default {
+    name: 'AppHeader'
+}
+</script>
+
 <template>
-    <header class="shadow">
-      <div class="container mb-3">
-        <div class="d-flex ">
-          <img width="100" src="https://upload.wikimedia.org/wikipedia/it/4/47/Yu-Gi-Oh%21_GX_logo.jpg" alt="">
-          <nav class="navbar navbar-expand navbar-light bg-light">
-            <div class="nav_bar">
-              <h1>Yu-Gi-Oh Api</h1>
-            </div>
-          </nav>
+    <header>
+        <div class="d-flex align-items-center gap-2 ms-2">
+            <img width="100" src="https://upload.wikimedia.org/wikipedia/it/4/47/Yu-Gi-Oh%21_GX_logo.jpg" alt="">
+            <h1>Yu-Gi-Oh Api</h1>
         </div>
-      </div>
     </header>
 </template>
 
-<script>
-  export default {
-    name: 'AppHeader'
-  }
-</script>
-
-<style lang="scss" >
-  
-</style>
+<style lang="scss" scoped></style>

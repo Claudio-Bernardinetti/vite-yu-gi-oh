@@ -1,25 +1,39 @@
-import {reactive} from 'vue'
+import { reactive } from "vue";
 import axios from 'axios';
 
 export const state = reactive({
-  base_url: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0',
-  characters: null,
-  info: null,
-  loading: true,
+    url: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?num=50&offset=0',
+    urlArchetypesList: 'https://db.ygoprodeck.com/api/v7/archetypes.php',
+    cards: '',
+    status: false,
+    archetypeName: '',
+    archetypeList: '',
+    fetchDataCard(url) {
 
-  fetchData() {
+        axios
+            .get(url)
+            .then(response => {
 
-    console.log(this, this.base_url);
-    axios
-      .get(this.base_url)
-      .then(response => {
-        console.log(response);
-        this.characters = response.data.data
-        this.info = response.data.info
-      })
-      .catch(error => {
-        console.log('Error:');
-        console.error(error);
-      })
-  }
+                this.status = true
+                this.cards = response.data.data
+
+            })
+            .catch(error => {
+                console.error(error);
+            })
+
+    },
+
+    fetchDataArchetypes(url) {
+        axios
+            .get(url)
+            .then(response => {
+
+                this.archetypeList = response.data;
+
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
 })

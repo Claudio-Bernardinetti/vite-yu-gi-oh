@@ -1,65 +1,54 @@
 <script>
-import { state } from "../state.js";
+import ArchetypeSelection from './ArchetypeSelection.vue';
+import CardCollection from './CardCollection.vue';
+
+import { state } from '../state.js';
+
 
 export default {
-  name: 'AppMain',
-  data() {
-    return {
-      state
+    name: 'AppMain',
+    emit: ['searchByArchetype'],
+    components: {
+        ArchetypeSelection,
+        CardCollection
+        
+    },
+    data() {
+        return {
+            state
+        }
+    },
+    methods: {
+        searchArchetype() {
+            const urlByArchetype = this.state.url + `&archetype=${this.state.archetypeName}`
+            this.state.fetchDataCard(urlByArchetype)
+            console.log(this.state.archetypeName, urlByArchetype);
+        }
+    },
+    created() {
+
+        state.fetchDataCard(this.state.url);
+        state.fetchDataArchetypes(this.state.urlArchetypesList)
     }
-  },
-  created() {
-    state.fetchData()
-  }
 }
 </script>
+
 <template>
-  <main class="">
+    <main>
+        <div class="container">
 
-    <section class="characters container_cl" v-if="state.characters">
+            <ArchetypeSelection @search-by-archetype="searchArchetype" />
+            <CardCollection />
 
-      <div class="container ">
-
-        <div class="row row-cols-1 row-cols-sm-3 g-3">
-
-          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" v-for="character in state.characters" :key="character.id">
-
-            <div class="card">
-              <img :src='character.card_images[0].image_url' alt='' />
-
-              <div class="card-body justify-content-center mb-5">
-                <h4>{{ character.name }}</h4>
-                <div class="meta">
-                   {{ character.archetype }}
-                </div>  
-              </div>
-
-            </div>
-
-          </div>
-          
         </div>
-      </div>
-    </section>
-    <div class="loader text-center" v-else>
-      <strong role="status">Caricamento
-                    delle mail in
-                    corso, attendere...
-        </strong>
-        <div class="spinner-grow  p-1 text-success"
-                    aria-hidden="true">
-        </div>
-            
-    </div>
-
-
-  </main>
+    </main>
 </template>
 
-<style lang="scss" scoped >
+<style lang="scss" scoped>
 @use '../assets/scss/partials/variables' as *;
 
-  .container_cl {
+main {
     background-color: $Yu_primary;
-  }
+}
 </style>
+
